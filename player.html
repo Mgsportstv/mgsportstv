@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clappr Player</title>
+    <script src="https://cdn.jsdelivr.net/clappr/latest/clappr.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/clappr.level-selector/latest/level-selector.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div id="oper"></div>
+<div id="vid"></div>
+
+<script>
+    // Parse URL parameters
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    // Get the custom ID from URL parameter
+    var customId = getParameterByName('url');
+
+    // Create the Clappr player with the custom ID
+    var player = new Clappr.Player({
+        source: customId || "default_source", // Use custom ID if provided, otherwise use a default source
+        mimeType: "application/x-mpegURL",
+        autoPlay: true,
+        height: "310",
+        width: "100%",
+        plugins: { "core": [LevelSelector] },
+        parentId: "#vid"
+    });
+
+    // Append the player to the video container
+    document.getElementById('vid').appendChild(player.el);
+</script>
+
+</body>
+</html>
