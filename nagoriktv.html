@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+        <title>MG SPORTS TV</title>
+        <style type="text/css">
+            body {
+                width: 100%;
+                height: 100%;
+                background-color: #202020;
+            }
+    
+            h1 {
+                vertical-align: middle;
+                text-align: center;
+                color: #FFFFFF;
+            }
+    
+            a {
+                color: white;
+                font-weight: 900;
+                font-family: 'Montserrat', sans-serif;
+                text-decoration: solid;
+            }
+    
+            #header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+    
+            #clappr:full-screen {
+                background: black;
+            }
+    
+            #clappr:-webkit-full-screen {
+                background: black;
+            }
+    
+            #clappr {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                min-height: 600px;
+            }
+    
+            #clappr > div {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+            }
+    
+            #clappr > div > div.media-control.live > div.media-control-layer {
+                width: 85% !important;
+                position: absolute;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0;
+                right: 0;
+                text-align: center;
+            }
+    
+            #toggleFullscreen {
+                display: block;
+                margin: 10px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            <img src="https://tv.mgsportstv.com/wp-content/uploads/2024/04/mgsportstv.png" style="width:100px;margin-top:120px;" />
+            <h1>Welcome To MG SPORTS TV</h1>
+        </div>
+        <div id="clappr" style="border:2px solid white;width:80vw; margin:5% auto 0% auto;"></div>
+        <button id="toggleFullscreen">Toggle Fullscreen</button>
+        <script>
+            var player = new Clappr.Player({
+                source: "https://edge01.iptv.digijadoo.net/live/nagorik_tv/playlist.m3u8?md5=7jrZelckMZa_XRoA-GZisw&expires=1718399510&user=ff39d05fef0749028389f28943b73363 ",
+                parentId: "#clappr",
+                width: '100%',
+                height: '100%',
+                autoPlay: true,
+            });
+        </script>
+        <script>
+            document.getElementById('toggleFullscreen').addEventListener('click', function() {
+                toggleFullScreenHandler('clappr');
+            }, false);
+    
+            function toggleFullScreenHandler(targetId) {
+                var target = document.getElementById(targetId);
+    
+                if (target.requestFullscreen) {
+                    target.requestFullscreen();
+                } else if (target.mozRequestFullScreen) {
+                    target.mozRequestFullScreen();
+                } else if (target.webkitRequestFullscreen) {
+                    target.webkitRequestFullscreen();
+                } else if (target.msRequestFullscreen) {
+                    target.msRequestFullscreen();
+                }
+            }
+        </script>
+    </body>
+    </html>
