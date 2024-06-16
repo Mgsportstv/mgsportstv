@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+        <title>MG SPORTS TV</title>
+        <style type="text/css">
+            body {
+                width: 100%;
+                height: 100%;
+                background-color: #202020;
+            }
+    
+        
+            
+    
+            #clappr:full-screen {
+                background: black;
+            }
+    
+            #clappr:-webkit-full-screen {
+                background: black;
+            }
+    
+            #clappr {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                min-height: 600px;
+            }
+    
+            #clappr > div {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+            }
+    
+            #clappr > div > div.media-control.live > div.media-control-layer {
+                width: 100% !important;
+                position: absolute;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0;
+                right: 0;
+                text-align: center;
+            }
+    
+            #toggleFullscreen {
+                display: block;
+                margin: 10px auto;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <div id="clappr" style="width:100%; height:100%;margin:5% auto 0% auto;"></div>
+      
+        <script>
+            var player = new Clappr.Player({
+                source: "http://172.20.2.5:8082/Star-Sports-1/tracks-v1/index.fmp4.m3u8?token=02ead5275605a81313f5ae5a02e9b397e3d861dc-04406acffafeaf7f454376ef3212757a-1718563868-1718553068",
+                parentId: "#clappr",
+                width: '100%',
+                height: '100%',
+                autoPlay: true,
+            });
+        </script>
+        <script>
+            document.getElementById('toggleFullscreen').addEventListener('click', function() {
+                toggleFullScreenHandler('clappr');
+            }, false);
+    
+            function toggleFullScreenHandler(targetId) {
+                var target = document.getElementById(targetId);
+    
+                if (target.requestFullscreen) {
+                    target.requestFullscreen();
+                } else if (target.mozRequestFullScreen) {
+                    target.mozRequestFullScreen();
+                } else if (target.webkitRequestFullscreen) {
+                    target.webkitRequestFullscreen();
+                } else if (target.msRequestFullscreen) {
+                    target.msRequestFullscreen();
+                }
+            }
+        </script>
+    </body>
+    </html>
