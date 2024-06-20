@@ -1,0 +1,120 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon.png"/>
+  <title>MG SPORTS TV</title>
+
+ 
+  <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dash-shaka-playback@latest/dist/dash-shaka-playback.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/clappr/clappr-level-selector-plugin@latest/dist/level-selector.min.js"></script>
+</head>
+<body bgcolor='black' style='margin:0'>
+  <div id="player-wrapper"></div>
+
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+      console.log('Clappr version ' + Clappr.version);
+          
+      // Mendapatkan nilai parameter search dari URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+          
+      // Data JSON untuk channel
+      const channelData = {
+        "PTV": {
+          "url": "https://tv5.hoichoi24.com/1000/video.m3u8"
+        },
+        "Star_Sport2": {
+          "url": "https://tv5.hoichoi24.com/1007/video.m3u8"
+        },
+        "PTV2": {
+          "url": "http://175.107.244.52:4457/play/a08g/index.m3u8"
+        },
+        "TLTTV": {
+          "url": "http://cdn.live247stream.com/thelight/tv/playlist.m3u8"
+        },
+        "BANGLATVEUROPE": {
+          "url": "https://byphdgllyk.gpcdn.net/hls/banglatveurope/index.m3u8"
+        },
+       "Star1hin": {
+          "url": "http://vo01.mohdtv.com:8880//live/hdtv0405dda140a6/15954034/55273.m3u8"
+        },
+        "Star1eng": {
+          "url": "https://iptv.cinehub.wf/mono/ddh2.onlinehdhls.ru:443/ddh2/premium267/tracks-v1a1/mono.m3u8  "
+        },
+        "Willow": {
+          "url": ""
+        },
+        "Willowxtrta": {
+          "url": "https://beecdn.wadim77289.workers.dev/Willow_Extra_Live_TV/tracks-v1a1/mono.m3u8"
+        },
+        "SkyCric": {
+          "url": "https://cdn-1.bdiptv24.line.pm/live/Sky/index.m3u8"
+        },
+       "SuperCric": {
+          "url": "https://beecdn.wadim77289.workers.dev/SuperSport_Cricket_Live_TV/tracks-v1a1/mono.m3u8"
+        },
+        "Tensport": {
+          "url": "http://176.119.29.52/live/00:1A:79:00:02:27/SN_1697176356/301.m3u8"
+        },
+        "NagorikTV": {
+          "url": "https://tv5.hoichoi24.com/1102/index.m3u8"
+        },
+        "Skymain": {
+          "url": "https://live.notebulk.xyz/7okqOybgpW8rCIak8rlISA/1718612018/uk_ssmain/tracks-v1a1/mono.m3u8"
+        },
+        "T-Sport": {
+          "url": "https://tv5.hoichoi24.com/1024/index.m3u8"
+        },
+       "Sony-Liv": {
+          "url": "https://dai.google.com/ssai/event/oZNVxALASVyYS4HMtTpRCw/master.m3u8"
+        },
+         "Sportstv": {
+          "url": "https://live.sportstv.com.tr/hls/low/sportstv.m3u8"
+        },
+         "Toffe1": {
+          "url": "https://pc.sandipsitaula2023.com.np/TV/tsports2.m3u8"
+        },
+         "AstroCric": {
+          "url": "https://cdn-1.bdiptv24.line.pm/live/AstroCricket/index.m3u8"
+        },
+         "SP": {
+          "url": "https://cdn-1.bdiptv24.line.pm/live/SP/index.m3u8"
+        },
+         "567": {
+          "url": "http://145.239.5.177:8080/567/index.m3u8"
+        },
+
+
+
+
+
+        
+
+
+        
+      }
+          
+      // Memastikan id ada dalam data JSON dan Setup clappr player
+      if (id && channelData[id]) {
+        var player = new Clappr.Player({
+          source: channelData[id].url,
+          parentId: '#player-wrapper',
+          plugins: [
+            LevelSelector,
+            DashShakaPlayback,
+          ],
+          width: '100%',
+          height: '100%',
+          hideMediaControl: true,
+          autoPlay: true
+        });
+      } else {
+          console.error('Channel not found!');
+      }
+    });
+  </script>
+</body>
+</html>
