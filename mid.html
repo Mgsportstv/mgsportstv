@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        body {
+          background-color: #23244a;
+        }
+      </style>
+    
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css"> 
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">        
+          
+      <body style="margin: 0; overflow: hidden;">
+          <div id="player-container" style="position: relative; width: 100%; height:100%;">
+                  <iframe id="video-iframe" src="https://player.huminbird.cn/detail.html?mid=${id}&type=1&pid=7&isTips=0&isLogin=1&sbtcolor=" frameborder="0" allowfullscreen='true' style="position: normal; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+             
+              
+          </div>
+      
+          <script>
+              //=======================================ID FUNCTION MADE BY kasintv=========================//
+             
+              const getIdFromUrl = () => new URL(window.location.href).searchParams.get('id');
+      
+              
+              const updateIframeSrc = () => {
+                  const id = getIdFromUrl();
+                  const videoIframe = document.getElementById('video-iframe');
+                  videoIframe.src = `https://player.huminbird.cn/detail.html?mid=${id}&type=1&pid=7&isTips=0&isLogin=1&sbtcolor=`;
+              };
+      
+              //=================================================================================================//
+              
+              updateIframeSrc();
+      
+             
+              document.getElementById('update-id-button').addEventListener('click', () => {
+                
+                  updateIframeSrc();
+              });
+      
+              
+              document.getElementById('fullscreen-button').addEventListener('click', () => {
+                  toggleFullscreen();
+              });
+      
+      
+              function toggleFullscreen() {
+                  const videoIframe = document.getElementById('video-iframe');
+      
+                  if (!document.fullscreenElement) {
+                      if (videoIframe.requestFullscreen) {
+                          videoIframe.requestFullscreen();
+                      } else if (videoIframe.mozRequestFullScreen) {
+                          videoIframe.mozRequestFullScreen();
+                      } else if (videoIframe.webkitRequestFullscreen) {
+                          videoIframe.webkitRequestFullscreen();
+                      } else if (videoIframe.msRequestFullscreen) {
+                          videoIframe.msRequestFullscreen();
+                      }
+                  } else {
+                      if (document.exitFullscreen) {
+                          document.exitFullscreen();
+                      } else if (document.mozCancelFullScreen) {
+                          document.mozCancelFullScreen();
+                      } else if (document.webkitExitFullscreen) {
+                          document.webkitExitFullscreen();
+                      } else if (document.msExitFullscreen) {
+                          document.msExitFullscreen();
+                      }
+                  }
+              }
+      
+      
+              window.addEventListener('popstate', updateIframeSrc);
+          </script>
+    
+      
+</html>
