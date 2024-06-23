@@ -4,14 +4,30 @@
         body {
           background-color: #23244a;
         }
+
+             /* Add your custom styles for the iframe container */
+        #player-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 aspect ratio (change based on your player's aspect ratio) */
+        }
+
+        #player-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            border: 0;
+        }
       </style>
     
         <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css"> 
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">        
           
       <body style="margin: 0; overflow: hidden;">
-          <div id="player-container" style="position: normal; width: 100%; height:900px;">
-                  <iframe id="video-iframe" src="https://player.huminbird.cn/detail.html?mid=${id}&type=1&pid=7&isTips=0&isLogin=1&sbtcolor=" frameborder="0" allowfullscreen='true' "></iframe>
+          <div id="player-container" allowfullscreen='true' >
+                  <iframe id="video-iframe" src="https://player.huminbird.cn/detail.html?mid=${id}&type=1&pid=7&isTips=0&isLogin=1&sbtcolor=" ></iframe>
              
               
           </div>
