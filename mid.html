@@ -46,48 +46,6 @@
       
               //=================================================================================================//
               
-              updateIframeSrc();
-      
-             
-              document.getElementById('update-id-button').addEventListener('click', () => {
-                
-                  updateIframeSrc();
-              });
-      
-              
-              document.getElementById('fullscreen-button').addEventListener('click', () => {
-                  toggleFullscreen();
-              });
-      
-      
-              function toggleFullscreen() {
-                  const videoIframe = document.getElementById('video-iframe');
-      
-                  if (!document.fullscreenElement) {
-                      if (videoIframe.requestFullscreen) {
-                          videoIframe.requestFullscreen();
-                      } else if (videoIframe.mozRequestFullScreen) {
-                          videoIframe.mozRequestFullScreen();
-                      } else if (videoIframe.webkitRequestFullscreen) {
-                          videoIframe.webkitRequestFullscreen();
-                      } else if (videoIframe.msRequestFullscreen) {
-                          videoIframe.msRequestFullscreen();
-                      }
-                  } else {
-                      if (document.exitFullscreen) {
-                          document.exitFullscreen();
-                      } else if (document.mozCancelFullScreen) {
-                          document.mozCancelFullScreen();
-                      } else if (document.webkitExitFullscreen) {
-                          document.webkitExitFullscreen();
-                      } else if (document.msExitFullscreen) {
-                          document.msExitFullscreen();
-                      }
-                  }
-              }
-      
-      
-              window.addEventListener('popstate', updateIframeSrc);
           </script>
     
       
