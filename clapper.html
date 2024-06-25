@@ -1,122 +1,56 @@
-<!DOCTYPE html> 
-<html lang="en"> 
+<html> 
 <head> 
-    <title>MG Sports Player</title> 
-    <meta name="referrer" content="no-referrer"> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-    <script disable-devtool-auto='' src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
-    <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script> 
-    <style> 
-        #container { 
-            margin: 0; 
-            padding: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: #8a0000; 
-            color: #fff; 
-            overflow: hidden; 
-            position: absolute; 
-            text-align: center; 
+<title></title> 
+<meta name="robots" content="noindex"> 
+<script src="//cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script> 
+<script type="text/javascript"src="//cdn.jsdelivr.net/gh/clappr/clappr-level-selector-plugin@latest/dist/level-selector.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@clappr/hlsjs-playback@1.2.0/dist/hlsjs-playback.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@c3voc/clappr-audio-track-selector@0.2.4/dist/audio-track-selector.min.js"></script> 
+ 
+<script disable-devtool-auto='' src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+<div id="player" style="height: 100%; width: 100%;"></div> 
+</head>   
+<body>  
+ <script> 
+        // Function to get query parameters from URL 
+        function getQueryParams(param) { 
+            let urlParams = new URLSearchParams(window.location.search); 
+            return urlParams.get(param); 
         } 
-        #iframe, #jwPlayer { 
-            height: 100vh !important; 
-            padding: 0; 
-            margin: 0; 
+ 
+        // Get the 'src' parameter from the URL 
+        var sourceUrl = getQueryParams('id'); 
+ 
+        // Default to a placeholder if 'src' is not provided 
+        if (!sourceUrl) { 
+            sourceUrl = ''; 
         } 
-        body { 
-            height: 100vh; 
-            margin: 0; 
-            padding: 0; 
-            text-align: center; 
-        } 
-        video { 
-            outline: 0; 
-        } 
-        #text { 
-            position: fixed; 
-            border: 0; 
-            left: 0; 
-            width: 100%; 
-            color: #fff; 
-            bottom: 50px; 
-            text-align: center; 
-            font-family: Tahoma; 
-            font-size: 20px; 
-            z-index: 9999; 
-        } 
-        .video-js { 
-            width: 100%; 
-            height: 100%; 
-        } 
-        #videojs { 
-            width: 100%; 
-            height: 100%; 
-        } 
-        .streaming-dimensions { 
-            width: 100% !important; 
-            height: 100% !important; 
-        } 
-       
-        .logo-container { 
-            position: fixed;
-            top: 10px; 
-            right: 10px;
-            z-index: 1000; 
-            display: flex;
-            align-items: center;
-        }
-        .logo-container .float {
-            display: inline-block; 
-            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/640px-Telegram_2019_Logo.svg.png') no-repeat center center;
-            background-size: contain; 
-            width: 100px;
-            height: 100px; 
-            text-decoration: none;
-        }
-        .logo-container .label-container { 
-            display: flex;
-            align-items: center; 
-            margin-left: 10px;
-        }
-        .logo-container .label-arrow {
-            color: white; 
-            margin-right: 5px;
-        }
-        .logo-container .label-text { 
-            color: white;
-            font-size: 0px;
-        }
-    </style> 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
-    <script> 
-        $(document).ready(function() { 
-            $("img").on("contextmenu", function() { 
-                return false; 
-            }); 
+ 
+        // Initialize Clappr player with the source URL 
+        var player = new Clappr.Player({ 
+            source: sourceUrl, 
+            plugins: [HlsjsPlayback, LevelSelector, AudioTrackSelector], 
+            width: '100%', 
+            height: '100%', 
+            autoPlay: true, 
+            mimeType: "application/x-mpegURL", 
+            mediacontrol: { seekbar: "#ff0000", buttons: "#eee" }, 
+            parentId: "#player", 
+            hlsUseNextLevel: false, 
+            hlsMinimumDvrSize: 60, 
+            hlsRecoverAttempts: 16, 
+            hlsPlayback: { 
+                preload: true, 
+                customListeners: [], 
+            }, 
+            playback: { 
+                extrapolatedWindowNumSegments: 2, 
+                triggerFatalErrorOnResourceDenied: false, 
+                hlsjsConfig: { 
+                    // hls.js specific options 
+                }, 
+            }, 
         }); 
-
-        function init() { 
-            // Placeholders for static HTML, replace with actual values or keep blank if not needed
-            var srcParam = 'src'; // Replace with actual src param or keep empty
-            var videoUrl = 'url'; // Replace with actual video URL or keep empty
-
-            if (srcParam) { 
-                document.getElementById('iframe').src = srcParam; 
-                document.getElementById('jwPlayer').style.display = 'none'; 
-            } else if (videoUrl) { 
-                jwplayer("jwPlayer").setup({ 
-                    file: videoUrl, 
-                }); 
-                document.getElementById('iframe').style.display = 'none'; 
-            } 
-        } 
     </script> 
-</head> 
-<body onload="init()"> 
-    <div id="container"> 
-        <iframe id="iframe" autoplay="false" allowfullscreen="allowfullscreen" allowtransparency="true" frameborder="0" height="100%" marginheight="0" marginwidth="0" sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" width="100%"></iframe> 
-        <div id="jwPlayer"></div> 
-        <div id="text">mgsportstv.com</div> 
-    </div> 
-</body> 
+    </body> 
 </html>
