@@ -1,12 +1,3 @@
-<?php 
-function getParam($sname) 
-{ 
-    return isset($_GET[$sname]) ? $_GET[$sname] : ''; 
-} 
- 
-$srcParam = getParam('src'); 
-$videoUrl = getParam('url'); 
-?> 
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
@@ -65,35 +56,36 @@ $videoUrl = getParam('url');
             height: 100% !important; 
         } 
        
-.logo-container {    position: fixed;
-    top: 10px;    right: 10px;
-    z-index: 1000;    display: flex;
-    align-items: center;}
-.logo-container .float {
-    display: inline-block;    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/640px-Telegram_2019_Logo.svg.png') no-repeat center center;
-    background-size: contain;    width: 100px;
-    height: 100px;    text-decoration: none;
-}
-.logo-container .label-container {    display: flex;
-    align-items: center;    margin-left: 10px;
-}
-.logo-container .label-arrow {
-    color: white;    margin-right: 5px;
-}
-.logo-container .label-text {    color: white;
-    font-size: 0px;}
- 
-
+        .logo-container { 
+            position: fixed;
+            top: 10px; 
+            right: 10px;
+            z-index: 1000; 
+            display: flex;
+            align-items: center;
+        }
+        .logo-container .float {
+            display: inline-block; 
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/640px-Telegram_2019_Logo.svg.png') no-repeat center center;
+            background-size: contain; 
+            width: 100px;
+            height: 100px; 
+            text-decoration: none;
+        }
+        .logo-container .label-container { 
+            display: flex;
+            align-items: center; 
+            margin-left: 10px;
+        }
+        .logo-container .label-arrow {
+            color: white; 
+            margin-right: 5px;
+        }
+        .logo-container .label-text { 
+            color: white;
+            font-size: 0px;
+        }
     </style> 
-    </div> 
-</div> 
-<div class="logo-container"> 
- <a href="https://t.me/mgsportstv1" target="_blank" rel="noopener noreferrer" class="float" id="logo"></a> 
-            <div class="label-container"> 
-                <i class="fa fa-play label-arrow"></i> 
-                <div class="label-text">Telegram</div> 
-            </div> 
-        </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
     <script> 
         $(document).ready(function() { 
@@ -101,24 +93,27 @@ $videoUrl = getParam('url');
                 return false; 
             }); 
         }); 
- 
+
         function init() { 
-            <?php if ($srcParam) { ?> 
-                document.getElementById('iframe').src = '<?php echo $srcParam; ?>'; 
+            // Placeholders for static HTML, replace with actual values or keep blank if not needed
+            var srcParam = 'src'; // Replace with actual src param or keep empty
+            var videoUrl = 'url'; // Replace with actual video URL or keep empty
+
+            if (srcParam) { 
+                document.getElementById('iframe').src = srcParam; 
                 document.getElementById('jwPlayer').style.display = 'none'; 
-            <?php } elseif ($videoUrl) { ?> 
+            } else if (videoUrl) { 
                 jwplayer("jwPlayer").setup({ 
-                    file: '<?php echo $videoUrl; ?>', 
+                    file: videoUrl, 
                 }); 
                 document.getElementById('iframe').style.display = 'none'; 
-            <?php } ?> 
+            } 
         } 
     </script> 
 </head> 
 <body onload="init()"> 
     <div id="container"> 
-        <iframe id="iframe" autoplay=
-        "false"allowfullscreen="allowfullscreen" allowtransparency="true" frameborder="0" height="100%" marginheight="0" marginwidth="0" sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" width="100%"></iframe> 
+        <iframe id="iframe" autoplay="false" allowfullscreen="allowfullscreen" allowtransparency="true" frameborder="0" height="100%" marginheight="0" marginwidth="0" sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" width="100%"></iframe> 
         <div id="jwPlayer"></div> 
         <div id="text">mgsportstv.com</div> 
     </div> 
