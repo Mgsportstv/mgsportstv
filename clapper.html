@@ -1,11 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>MG Sports Player</title>
-<meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js" type="c5ee9d1a70f2888b1f3e0771-text/javascript"></script>
-<style> 
+<?php 
+function getParam($sname) 
+{ 
+    return isset($_GET[$sname]) ? $_GET[$sname] : ''; 
+} 
+ 
+$srcParam = getParam('src'); 
+$videoUrl = getParam('url'); 
+?> 
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>MG Sports Player</title> 
+    <meta name="referrer" content="no-referrer"> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+    <script src="https://content.jwplatform.com/libraries/IDzF9Zmk.js"></script> 
+    <style> 
         #container { 
             margin: 0; 
             padding: 0; 
@@ -55,7 +64,8 @@
             width: 100% !important; 
             height: 100% !important; 
         } 
-        .logo-container {    position: fixed;
+       
+.logo-container {    position: fixed;
     top: 10px;    right: 10px;
     z-index: 1000;    display: flex;
     align-items: center;}
@@ -72,16 +82,20 @@
 }
 .logo-container .label-text {    color: white;
     font-size: 14px;}
-    </style>
-<div class="logo-container" >
- <a href="https://t.me/mgsportstv1" target="_blank" rel="noopener noreferrer" class="float" id="logo"></a>
-            <div class="label-container" bis_skin_checked="1">
-                <i class="fa fa-play label-arrow"></i>
-                <div class="label-text"></div>
-            </div>
+ 
+
+    </style> 
+    </div> 
+</div> 
+<div class="logo-container"> 
+ <a href="https://t.me/mgsportstv1" target="_blank" rel="noopener noreferrer" class="float" id="logo"></a> 
+            <div class="label-container"> 
+                <i class="fa fa-play label-arrow"></i> 
+                <div class="label-text">Telegram</div> 
+            </div> 
         </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" type="c5ee9d1a70f2888b1f3e0771-text/javascript"></script>
-<script type="c5ee9d1a70f2888b1f3e0771-text/javascript"> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script> 
         $(document).ready(function() { 
             $("img").on("contextmenu", function() { 
                 return false; 
@@ -89,20 +103,24 @@
         }); 
  
         function init() { 
-             
+            <?php if ($srcParam) { ?> 
+                document.getElementById('iframe').src = '<?php echo $srcParam; ?>'; 
+                document.getElementById('jwPlayer').style.display = 'none'; 
+            <?php } elseif ($videoUrl) { ?> 
                 jwplayer("jwPlayer").setup({ 
-                    file: 'https://hdstreamz.vip/tsportshd/stream.php?stream=https://live-cdn.tsports.com/live-02/master_1080.m3u8', 
+                    file: '<?php echo $videoUrl; ?>', 
                 }); 
                 document.getElementById('iframe').style.display = 'none'; 
-             
+            <?php } ?> 
         } 
-    </script>
-</head>
-<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="c5ee9d1a70f2888b1f3e0771-|49"></script><body onload="init()">
-<div id="container">
-<iframe id="iframe" autoplay="false" allowfullscreen="allowfullscreen" allowtransparency="true" frameborder="0" height="100%" marginheight="0" marginwidth="0" sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" width="100%"></iframe>
-<div id="jwPlayer"></div>
-<div id="text">mgsportstv.com</div>
-</div>
-<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="c5ee9d1a70f2888b1f3e0771-|49" defer></script></body>
+    </script> 
+</head> 
+<body onload="init()"> 
+    <div id="container"> 
+        <iframe id="iframe" autoplay=
+        "false"allowfullscreen="allowfullscreen" allowtransparency="true" frameborder="0" height="100%" marginheight="0" marginwidth="0" sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" width="100%"></iframe> 
+        <div id="jwPlayer"></div> 
+        <div id="text">mgsportstv.com</div> 
+    </div> 
+</body> 
 </html>
