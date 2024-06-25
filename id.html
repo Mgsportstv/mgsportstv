@@ -1,0 +1,128 @@
+<html> 
+<head> 
+<title></title> 
+<meta name="robots" content="noindex"> 
+<script src="//cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script> 
+<script type="text/javascript"src="//cdn.jsdelivr.net/gh/clappr/clappr-level-selector-plugin@latest/dist/level-selector.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@clappr/hlsjs-playback@1.2.0/dist/hlsjs-playback.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@c3voc/clappr-audio-track-selector@0.2.4/dist/audio-track-selector.min.js"></script> 
+<style>
+
+ .logo-container {  
+                position: absolute;  
+                top: 5px;  
+                left: 5px;  
+                width: 60px;  
+                height: 60px;  
+            }  
+  
+#logo {  
+                position: fixed;  
+                background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/640px-Telegram_2019_Logo.svg.png");  
+                background-size: cover;  
+                background-position: center;  
+            }  
+   .plyr {  
+                height: 100%;  
+                width: 100%;  
+            }  
+.float {  
+                height: 60px;  
+                width: 60px;  
+                z-index: 10;  
+                border-radius: 50px;  
+                box-shadow: 2px 2px 3px #999;  
+            }  
+.label-container{  
+             position: relative;  
+                top: 5px;  
+                left:70px;  
+                display:table;  
+                visibility: hidden;  
+            }  
+  
+            .label-text{  
+                color:#FFF;  
+                background:rgba(51,51,51,0.5);  
+                display:table-cell;  
+                vertical-align:middle;  
+                padding:10px;  
+                border-radius:3px;  
+            }  
+  
+            .label-arrow{  
+                display:table-cell;  
+                vertical-align:middle;  
+                color:#333;  
+                opacity:0.5;  
+                transform: scaleX(-1);  
+            }  
+  
+            a.float + div.label-container {  
+              visibility: hidden;  
+              opacity: 0;  
+              transition: visibility 0s, opacity 0.5s ease;  
+            }  
+  
+            a.float:hover + div.label-container{  
+              visibility: visible;  
+              opacity: 1;  
+            }  
+</style>
+
+
+ 
+<script disable-devtool-auto='' src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+ <div class="logo-container">  
+ <a href="https://t.me/mgsportstv1" target="_blank" rel="noopener noreferrer" class="float" id="logo"></a>  
+            <div class="label-container">  
+                <i class="fa fa-play label-arrow"></i>  
+                <div class="label-text">Telegram</div>  
+            </div>  
+        </div> 
+<div id="player" style="height: 100%; width: 100%;"></div> 
+</head>   
+<body>  
+ <script> 
+        // Function to get query parameters from URL 
+        function getQueryParams(param) { 
+            let urlParams = new URLSearchParams(window.location.search); 
+            return urlParams.get(param); 
+        } 
+ 
+        // Get the 'src' parameter from the URL 
+        var sourceUrl = getQueryParams('id'); 
+ 
+        // Default to a placeholder if 'src' is not provided 
+        if (!sourceUrl) { 
+            sourceUrl = 'src'; 
+        } 
+ 
+        // Initialize Clappr player with the source URL 
+        var player = new Clappr.Player({ 
+            source: sourceUrl, 
+            plugins: [HlsjsPlayback, LevelSelector, AudioTrackSelector], 
+            width: '100%', 
+            height: '100%', 
+            autoPlay: true, 
+            mimeType: "application/x-mpegURL", 
+            mediacontrol: { seekbar: "#ff0000", buttons: "#eee" }, 
+            parentId: "#player", 
+            hlsUseNextLevel: false, 
+            hlsMinimumDvrSize: 60, 
+            hlsRecoverAttempts: 16, 
+            hlsPlayback: { 
+                preload: true, 
+                customListeners: [], 
+            }, 
+            playback: { 
+                extrapolatedWindowNumSegments: 2, 
+                triggerFatalErrorOnResourceDenied: false, 
+                hlsjsConfig: { 
+                    // hls.js specific options 
+                }, 
+            }, 
+        }); 
+    </script> 
+    </body> 
+</html>
