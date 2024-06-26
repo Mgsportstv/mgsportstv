@@ -30,7 +30,32 @@
         #unmute-button:focus {
             outline: none;
         }
+
+       .logo-container {    position: fixed;
+    top: 10px;    right: 10px;
+    z-index: 1000;    display: flex;
+    align-items: center;}
+.logo-container .float {
+    display: inline-block;    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/640px-Telegram_2019_Logo.svg.png') no-repeat center center;
+    background-size: contain;    width: 50px;
+    height: 50px;    text-decoration: none;
+}
+.logo-container .label-container {    display: flex;
+    align-items: center;    margin-left: 10px;
+}
+.logo-container .label-arrow {
+    color: white;    margin-right: 5px;
+}
+.logo-container .label-text {    color: white;
+    font-size: 14px;}
     </style>
+   <div class="logo-container" >
+ <a href="https://t.me/mgsportstv1" target="_blank" rel="noopener noreferrer" class="float" id="logo"></a>
+            <div class="label-container" bis_skin_checked="1">
+                <i class="fa fa-play label-arrow"></i>
+                <div class="label-text"></div>
+            </div>
+        </div>
 </head>
 <body>
     <div id="player-wrapper"></div>
