@@ -20,7 +20,32 @@
             height: 100vh;
             border: 0;
         }
+
+        .logo-container {    position: fixed;
+    bottom: 10px;    left: 10px;
+    z-index: 1000;    display: flex;
+    align-items: center;}
+.logo-container .float {
+    display: inline-block;    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/640px-Telegram_2019_Logo.svg.png') no-repeat center center;
+    background-size: contain;    width: 50px;
+    height: 50px;    text-decoration: none;
+}
+.logo-container .label-container {    display: flex;
+    align-items: center;    margin-left: 10px;
+}
+.logo-container .label-arrow {
+    color: white;    margin-right: 5px;
+}
+.logo-container .label-text {    color: white;
+    font-size: 14px;}
       </style>
+      <div class="logo-container" >
+ <a href="https://t.me/mgsportstv1" target="_blank" rel="noopener noreferrer" class="float" id="logo"></a>
+            <div class="label-container" bis_skin_checked="1">
+                <i class="fa fa-play label-arrow"></i>
+                <div class="label-text"></div>
+            </div>
+        </div>
     
         <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css"> 
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">        
