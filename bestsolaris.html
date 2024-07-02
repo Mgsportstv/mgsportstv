@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="no-js ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+	<title>MG SPORTS TV</title>
+	<meta name="robots" content="noindex, follow" />
+	<style type="text/css">
+		body {
+			margin: 0 !important;
+		}
+
+		iframe.iframe-player {
+			width: 100%;
+			min-height: 700px;
+			border: 0;
+		}
+		#alertBox {
+        position: absolute;
+        max-width: 400px;
+        background-color: #930f0d;
+        color: #fff;
+        opacity: 1;
+        transition: opacity 0.6s;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        text-align: center;
+    }
+
+    #alertBox button {
+        display: block;
+        margin: 10px auto 0 auto;
+        padding: 10px 20px;
+        background-color: #fff;
+        color: #e10600;
+        font-weight: bolder;
+        border: 2px solid #000;
+        border-radius: 25px;
+        cursor: pointer;
+    }
+
+    .level_selector[data-level-selector] li:nth-child(n+4){display:none}
+	</style>
+	
+</head>
+	<div id="player"></div>
+	<script src="//cdn.jsdelivr.net/npm/@clappr/player@0.4.7/dist/clappr.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/cdnbye@latest/dist/hlsjs-p2p-engine.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/cdnbye@latest/dist/clappr-plugin.min.js"></script>
+	<script src="//cdn.jsdelivr.net/gh/clappr/clappr-level-selector-plugin@latest/dist/level-selector.min.js"></script>
+	<script>
+		var playerElement = document.getElementById("player");
+		var player = new Clappr.Player({
+			source: "https://jss.diggyer.shop/live//.html",
+			height: '100%',
+			width: '100%',
+			loop: 'true',
+			plugins: [LevelSelector, CDNByeClapprPlugin],
+			mediacontrol: {
+				seekbar: '#014AFF',
+				buttons: '#FFF'
+			},
+			playback: {
+				hlsjsConfig: {
+					maxBufferSize: 0,
+					maxBufferLength: 10,
+					liveSyncDurationCount: 10,
+					p2pConfig: {
+						live: true,
+					}
+				}
+			},
+			mimeType: "application/x-mpegURL"
+		});
+		player.attachTo(playerElement);
+		player.listenTo(player, Clappr.Events.PLAYER_PLAY, function(e) {
+							console.log("Video Started!");
+							setTimeout(function(){
+								var alertDiv = document.createElement("div");
+								alertDiv.id = "alertBox";
+								alertDiv.innerHTML = '<strong>Your 1 hours of streaming time has expired.</strong> Refresh the page to continue watching the stream. <button onclick="location.reload()">Reload</button>';
+								document.querySelector("#player").appendChild(alertDiv);
+							}, 1000 * 60 * 60 * 1);
+
+						});
+		function resizePlayer() {
+			var aspectRatio = 9 / 16,
+				newWidth = document.getElementById('player').parentElement.offsetWidth,
+				newHeight = 2 * Math.round(newWidth * aspectRatio / 2);
+			player.resize({
+				width: newWidth,
+				height: newHeight
+			});
+		}
+		resizePlayer();
+		window.onresize = resizePlayer;
+	</script>
+<script>
+</script>
+<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+<script type="text/javascript">
+    aclib.runPop({
+        zoneId: '8107350',
+    });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRFE3HGE8D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WRFE3HGE8D');
+</script>
+
+</body>
+
+</html>
