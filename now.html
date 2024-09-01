@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shaka Player Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.2/shaka-player.compiled.min.js"></script>
+</head>
+<body>
+    <video id="video" width="640" controls autoplay></video>
+    <script>
+        var video = document.getElementById('video');
+        var manifestUri = 'https://medialive.akash-go.com/out/v1/4d015848792f45e1bd0ba5ce73452a37/index.mpd';
+
+        // Install polyfills
+        shaka.polyfill.installAll();
+
+        // Check if the browser supports the basic APIs Shaka needs.
+        if (shaka.Player.isBrowserSupported()) {
+            var player = new shaka.Player(video);
+            player.configure({
+                drm: {
+                    clearKeys: {
+                        'lA3og3MaRaaHcCEqLqFbnA': 'LDZ4vlI0MKYMQGv2qNmszw'
+                    }
+                }
+            });
+
+            // Try to load a manifest.
+            player.load(manifestUri).then(function() {
+                console.log('The video has now been loaded!');
+            }).catch(function(error) {
+                console.error('Error loading video:', error);
+            });
+        } else {
+            console.error('Browser not supported!');
+        }
+    </script>
+</body>
+</html>
