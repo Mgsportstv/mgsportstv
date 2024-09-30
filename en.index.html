@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MG SPORTS TV</title>
+    <meta content="noindex, nofollow, noarchive" name="robots"/>
+    <meta name="referrer" content="no-referrer" />
+    <script src="//ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
+    <script>jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";</script>
+    <style>
+        body { margin: 0px; }
+        .ViostreamIframe { overflow: hidden; padding-top: 56.25%; position: relative; }
+        .ViostreamIframe iframe { border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%; }
+          .logo-container {    position: fixed;
+    top: 10px;    right: -2px;
+    z-index: 1000;    display: flex;
+    align-items: center;}
+.logo-container .float {
+    display: inline-block;    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/640px-Telegram_2019_Logo.svg.png') no-repeat center center;
+    background-size: contain;    width: 50px;
+    height: 50px;    text-decoration: none;
+}
+.logo-container .label-container {    display: flex;
+    align-items: center;    margin-left: 10px;
+}
+.logo-container .label-arrow {
+    color: white;    margin-right: 5px;
+}
+.logo-container .label-text {    color: white;
+    font-size: 14px;}
+    </style>
+     <div class="logo-container" >
+ <a href="https://t.me/mgsportstv1" target="_blank" rel="noopener noreferrer" class="float" id="logo"></a>
+            <div class="label-container" bis_skin_checked="1">
+                <i class="fa fa-play label-arrow"></i>
+                <div class="label-text"></div>
+            </div>
+        </div>
+</head>
+<body>
+    <div id="player" class="ViostreamIframe"></div>
+
+    <script>
+        function getParameterByName(name) {
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(window.location.href);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+// Function to decode base64 strings
+function decodeBase64(encoded) {
+    return atob(encoded);
+}
+
+// Check if the script is running on the allowed domain
+if (window.location.hostname !== 'mgsportstv.com' && window.location.hostname !== 'tv2.mgsportstv.com' && window.location.hostname !== 'tv.mgsportstv.com') {
+    document.body.innerHTML = "<h1>Error: Unauthorized domain</h1><p>This content is only available on mshserver.dev</p>";
+     window.location.href = "https://mgsportstv.com/";
+    throw new Error("Unauthorized domain");
+} else {
+    window.location.href = "https://mgsportstv.com/";
+}
+
+var ConfiguracionCanales = {
+    "USANETWORK": {
+        url: "Ly9mc2x5LnN0cmVhbS5wZWFjb2NrdHYuY29tL0NvbnRlbnQvQ01BRl9PTDEtQ1RSLTRzL0xpdmUvY2hhbm5lbCh1c2EtZWFzdCkvbWFzdGVyLm1wZA==",
+        k1: "ODgyYzlmNTYxM2I0M2I0N2FkYzcwYWE5NjhhMzA4Y2U=",
+        k2: "ZGU1MzRlZjg5MTRiZmU2MmJhM2NkZDZiZGI5ZTFjMDQ="
+    },
+    "TNT_1_GB": {
+        url: "aHR0cHM6Ly9vdHRiLmxpdmUuY2Yud3cuYWl2LWNkbi5uZXQvbGhyLW5pdHJvL2xpdmUvY2xpZW50cy9kYXNoL2VuYy93Zjh1c2FnNTFlL291dC92MS9iZDNiMGMzMTRmZmY0YmIxYWI0NjkzMzU4ZjNjZDJkMy9jZW5jLm1wZA==",
+        k1: "YWUyNjg0NWJkMzMwMzhhOWMwNzc0YTA5ODEwMDcyOTQ=",
+        k2: "NjNhYzY2MmRkZTMxMGNmYjRjYzZmOWI0M2IzNDE5NmQ="
+    },
+    "TNT_2_GB": {
+        url: "aHR0cHM6Ly9zc2MxLWFrLmFrYW1haXplZC5uZXQvb3V0L3YxL2M2OTZlNDgxOWI1NTQxNDM4OGExYTQ4N2U4YTQ1Y2ExL2luZGV4Lm1wZA==",
+        k1: "ZDg0YzMyNWYzNjgxNGYzOWJiZTU5MDgwMjcyYjEwYzM=",
+        k2: "NTUwNzI3ZGU0Yzk2ZWYxZWNmZjg3NDkwNTQ5MzU4MGY="
+    }
+};
+
+var id = getParameterByName('id');
+var config = ConfiguracionCanales[id];
+
+if (config) {
+    var sources = [];
+
+    var decodedUrl = decodeBase64(config.url);
+    var decodedK1 = decodeBase64(config.k1);
+    var decodedK2 = decodeBase64(config.k2);
+
+    if (decodedUrl.includes('.m3u8')) {
+        sources.push({
+            file: decodedUrl
+        });
+    }
+
+    if (decodedUrl.includes('.mpd') && decodedK1 && decodedK2) {
+        sources.push({
+            file: decodedUrl,
+            drm: {"clearkey": {"keyId": decodedK1, "key": decodedK2}}
+        });
+    }
+
+    jwplayer("player").setup({
+        playlist: [{
+            sources: sources
+        }],
+        autostart: true,
+        width: "100%",
+        height: "100%",
+        stretching: "exactfit",
+        aspectratio: "16:9",
+        cast: {},
+    });
+}
+    </script>
+</body>
+</html>
