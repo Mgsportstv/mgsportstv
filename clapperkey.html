@@ -1,0 +1,89 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clappr Player with PHP-based ClearKey DRM</title>
+
+    <!-- Clappr and necessary plugins -->
+ <link rel="stylesheet" type="text/css" href="clap.css">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/clappr/latest/clappr.js"></script>
+    <script type="text/javascript" src="js/level.js"></script>
+    <script src="js/dash-shaka-playback.js"></script>
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111; /* Dark background for the page */
+        }
+
+        #player {
+            width: 100%;
+            height: 100vh; /* Full-screen video player */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="player"></div>
+
+    <script>
+        // PHP variables converted to JavaScript
+        var dash_mpd_url = "https://aba5sdmaaaaaaaamd2pqhgokntneg.otte.live.cf.ww.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/mfvez6cbji/out/v1/108bfdad52584b3dac8da45d0b679e7d/cenc.mpd?";
+        var drmKeyId = "29d389f476fe821be2fa93f48377cf66";
+        var drmKey = "a9edff53a726d123acfed56e68d0299e";
+
+        // Chromecast and DRM Configurations
+        var chromecastConfig = {
+            appId: "9DFB77C0",
+            contentType: "video/mp4"
+        };
+
+        var drmKeys = {};
+        drmKeys[drmKeyId] = drmKey;
+
+        var drmConfig = {
+            clearKeys: drmKeys
+        };
+
+        var shakaConfig = {
+            drm: drmConfig
+        };
+
+        // Initialize Clappr player with Dash, Shaka, DRM, and Quality Selector plugins
+        var player = new Clappr.Player({
+            source: dash_mpd_url,
+            mimeType: 'application/dash+xml',
+            height: '100%',
+            width: '100%',
+            autoPlay: false,
+            plugins: [LevelSelector, DashShakaPlayback, Clappr.MediaControl],
+            mediacontrol: {
+                seekbar: "#886FFF",  // Red seek bar
+                buttons: "#C8A8D8"  // Light control buttons
+            },
+            events: {
+                onReady: function () {
+                    var clickToPausePlugin = this.getPlugin("click_to_pause");
+                    if (clickToPausePlugin) {
+                        clickToPausePlugin.disable();
+                    }
+                }
+            },
+            chromecast: chromecastConfig,
+            shakaConfiguration: shakaConfig,  // DRM configuration for Shaka
+            shakaOnBeforeLoad: function (shakaPlayerInstance) {
+                // Additional DRM configurations or events if needed before Shaka Player loads
+            },
+            parentId: "#player"
+        });
+    </script>
+</body>
+
+</html>
