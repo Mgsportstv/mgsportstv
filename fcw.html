@@ -6,27 +6,21 @@
     <title>Video.js HLS Player</title>
     <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
     <style>
-        /* Ensures the video container sticks to the specified width and height */
-        #my-video {
-            width: 900px;
-            height: 500px;
-            max-width: 100%; /* Makes it responsive within available space */
-        }
-
-        /* This ensures it doesn't automatically scale to full screen */
-        .vjs-fullscreen {
-            width: 900px !important;
-            height: 500px !important;
-        }
-
-        /* Body margin to position the video centrally */
-        body {
+        /* Ensure the body and html take up 100% of the viewport */
+        html, body {
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f8f8;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Make the video player take full width and height */
+        .video-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -37,35 +31,43 @@
       class="video-js vjs-default-skin"
       controls
       preload="auto"
-      width="900"
-      height="500"
       data-setup="{}"
     >
-      <source id="video-source" type="application/x-mpegURL" />
+      <!-- Source will be dynamically inserted -->
     </video>
 
     <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@latest/dist/videojs-contrib-hls.js"></script>
     <script>
       // Function to get URL parameters
-      function getQueryParam(param) {
-        var urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
+      function getParameterByName(name, url = window.location.href) {
+          name = name.replace(/[\[\]]/g, '\\$&');
+          var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+              results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, ' '));
       }
 
-      // Get the media link from the 'url' parameter
-      var mediaLink = getQueryParam('url');
+      // Define the base URL
+      var baseUrl = 'https://wtf.pstvlive.xyz/ps_live.php?ps=';
 
-      if (mediaLink) {
-        // Set the source of the video dynamically
-        var videoSource = document.getElementById('video-source');
-        videoSource.src = mediaLink;
+      // Get the 'url' parameter from the URL
+      var videoParam = getParameterByName('url');
+      
+      if (videoParam) {
+        // Construct the final video URL
+        var videoUrl = baseUrl + videoParam;
 
-        // Initialize the player
         var player = videojs('my-video');
+        // Dynamically set the source
+        player.src({
+          src: videoUrl,
+          type: 'application/x-mpegURL'
+        });
         player.play();
       } else {
-        alert("No media URL provided!");
+        console.error('No video URL provided in the parameters.');
       }
     </script>
 
