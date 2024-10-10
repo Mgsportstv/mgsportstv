@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video.js HLS Player</title>
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+    <style>
+        /* Ensures the video container sticks to the specified width and height */
+        #my-video {
+            width: 900px;
+            height: 500px;
+            max-width: 100%; /* Makes it responsive within available space */
+        }
+
+        /* This ensures it doesn't automatically scale to full screen */
+        .vjs-fullscreen {
+            width: 900px !important;
+            height: 500px !important;
+        }
+
+        /* Body margin to position the video centrally */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f8f8;
+        }
+    </style>
+</head>
+<body>
+
+    <video
+      id="my-video"
+      class="video-js vjs-default-skin"
+      controls
+      preload="auto"
+      width="900"
+      height="500"
+      data-setup="{}"
+    >
+      <source id="video-source" type="application/x-mpegURL" />
+    </video>
+
+    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@latest/dist/videojs-contrib-hls.js"></script>
+    <script>
+      // Function to get URL parameters
+      function getQueryParam(param) {
+        var urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      // Get the media link from the 'url' parameter
+      var mediaLink = getQueryParam('url');
+
+      if (mediaLink) {
+        // Set the source of the video dynamically
+        var videoSource = document.getElementById('video-source');
+        videoSource.src = mediaLink;
+
+        // Initialize the player
+        var player = videojs('my-video');
+        player.play();
+      } else {
+        alert("No media URL provided!");
+      }
+    </script>
+
+</body>
+</html>
