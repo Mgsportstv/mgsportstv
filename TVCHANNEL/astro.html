@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="description" content="You Have Use Any m3u8 link">
+  <meta name="keywords" content="Watch live sports streaming online, including football, basketball, baseball, hockey, and more. Stream your favorite sports teams and events in HD, with no cable subscription required.">
+  <meta name="author" content="SPORTS-ONE">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>CRICHD-HEX</title>
+  <link rel="shortcut icon" type="image/x-icon" href="https://i.ibb.co/h9gMGmQ/sports1.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.2/dist/plyr.css">
+  <script src="https://cdn.jsdelivr.net/npm/plyr@3.6.12/dist/plyr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.1.4/dist/hls.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Poppins, sans-serif;
+      background-color: #000;
+    }
+
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-text {
+      color: #00b3ff;
+      font-size: 24px;
+      font-family: 'Quattrocento Sans', sans-serif;
+      text-align: center;
+    }
+
+    .loading-text span {
+      animation: blur-text 1.5s infinite linear alternate;
+    }
+
+    @keyframes blur-text {
+      0% {
+        filter: blur(0px);
+      }
+      100% {
+        filter: blur(4px);
+      }
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      margin: 0 auto;
+      z-index: 1;
+      position: relative;
+    }
+
+    .plyr__video-wrapper {
+      z-index: 1;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loading" class="loading">
+    <div class="loading-text">
+      <span>H</span><span>E</span><span>X</span>
+    </div>
+  </div>
+
+    
+  <video id="player" controls crossorigin playsinline>
+    <source type="application/vnd.apple.mpegurl" src="crichd.php?id=skyscric">
+  </video>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const video = document.querySelector("#player");
+      const source = video.querySelector("source").src;
+      const playerOptions = {};
+
+      if (Hls.isSupported()) {
+        const hls = new Hls({
+          maxMaxBufferLength: 100
+        });
+
+        hls.loadSource(source);
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          const qualities = hls.levels.map(level => level.height);
+          playerOptions.quality = {
+            default: qualities[0],
+            options: qualities,
+            forced: true,
+            onChange: (quality) => {
+              hls.levels.forEach((level, index) => {
+                if (level.height === quality) hls.currentLevel = index;
+              });
+            }
+          };
+
+          // Initialize Plyr with the quality options
+          new Plyr(video, playerOptions);
+        });
+
+        hls.on(Hls.Events.LEVEL_LOADED, function() {
+          // Hide the loading screen when the video is ready
+          document.getElementById('loading').style.display = 'none';
+        });
+
+        window.hls = hls;
+      } else {
+        // HLS not supported, initialize Plyr directly
+        new Plyr(video, playerOptions);
+        // Hide the loading screen if no HLS is used
+        document.getElementById('loading').style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
