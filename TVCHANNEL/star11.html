@@ -1,1 +1,31 @@
-<iframe src="https://stream.imotv.online/sports/sportstv.php?c=star1in" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
+
+<source type="application/vnd.apple.mpegurl" src="play.php?key=AKI&c=star1in">
+<html>
+<head>
+<title>SHIHAB TV </title>
+<link rel="stylesheet" type="text/css" href="https://daddy.shihabtv.xyz/cn1/clap.css">
+<script src="//cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+<script type="text/javascript"src="//cdn.jsdelivr.net/gh/clappr/clappr-level-selector-plugin@latest/dist/level-selector.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@clappr/hlsjs-playback@1.2.0/dist/hlsjs-playback.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@c3voc/clappr-audio-track-selector@0.2.4/dist/audio-track-selector.min.js"></script>
+<script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+<div id="player" style="height: 100%; width: 100%;"></div>
+</head>  
+<body> 
+<script>
+        var player = new Clappr.Player({
+			watermark: 'https://tv-shihab.xyz/wp-content/uploads/2024/03/tv-shihab-logo-w.png',
+            position: 'top-left',
+            hide: true,
+            source: 'play.php?key=AKI&c=star1in&e=.m3u8',
+            width: '100%',
+            height: '100%',
+            autoPlay: true,
+            plugins: [HlsjsPlayback, LevelSelector, AudioTrackSelector],
+            mimeType: "application/x-mpegURL",
+            mediacontrol: { seekbar: "#ff0000", buttons: "#eee" },
+            parentId: "#player",
+        });
+    </script>
+    </body>
+</html>
