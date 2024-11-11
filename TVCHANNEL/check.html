@@ -1,60 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JW Player with ClearKey DRM</title>
-    <!-- Include the JW Player library -->
-    <script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script>
+    <title>MG SPORTS TV Clappr Player with PHP-based ClearKey DRM</title>
+
+    <!-- Clappr and necessary plugins -->
+ <link rel="stylesheet" type="text/css" href="https://tv2.mgsportstv.com/Player/js/clap.css">
+    
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/clappr/latest/clappr.js"></script>
+    <script type="text/javascript" src="https://tv2.mgsportstv.com/Player/js/level.js"></script>
+    <script src="https://tv2.mgsportstv.com/Player/js/dash-shaka-playback.js"></script>
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111; /* Dark background for the page */
+        }
+
+        #player {
+            width: 100%;
+            height: 100vh; /* Full-screen video player */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="player"></div>
+
+    <script>
+        // PHP variables converted to JavaScript
+        var dash_mpd_url = "https://g006-sle-us-cmaf-prd-fy.cdn.peacocktv.com/co01/Content/CMAF_S2-CTR-4s/Live/channel(5014719-716117-48f94965b15)/master.mpd?";
+        var drmKeyId = "00225fd04ffc907d9eda034a656c1a0e";
+        var drmKey = "2039ec525c523c20e70f6d18216ec590";
+
+        // Chromecast and DRM Configurations
+        var chromecastConfig = {
+            appId: "9DFB77C0",
+            contentType: "video/mp4"
+        };
+
+        var drmKeys = {};
+        drmKeys[drmKeyId] = drmKey;
+
+        var drmConfig = {
+            clearKeys: drmKeys
+        };
+
+        var shakaConfig = {
+            drm: drmConfig
+        };
+
+        // Initialize Clappr player with Dash, Shaka, DRM, and Quality Selector plugins
+        var player = new Clappr.Player({
+            source: dash_mpd_url,
+            mimeType: 'application/dash+xml',
+            height: '100%',
+            width: '100%',
+            autoPlay: false,
+            plugins: [LevelSelector, DashShakaPlayback, Clappr.MediaControl],
+            mediacontrol: {
+                seekbar: "#886FFF",  // Red seek bar
+                buttons: "#C8A8D8"  // Light control buttons
+            },
+            events: {
+                onReady: function () {
+                    var clickToPausePlugin = this.getPlugin("click_to_pause");
+                    if (clickToPausePlugin) {
+                        clickToPausePlugin.disable();
+                    }
+                }
+            },
+            chromecast: chromecastConfig,
+            shakaConfiguration: shakaConfig,  // DRM configuration for Shaka
+            shakaOnBeforeLoad: function (shakaPlayerInstance) {
+                // Additional DRM configurations or events if needed before Shaka Player loads
+            },
+            parentId: "#player"
+        });
+    </script>
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Modal</title>
+    <style>
+        /* Styles for the modal and Telegram banner */
+        .tg-banner {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #1da1f2, #0077b5);
+            border-radius: 12px;
+            padding: 9px 18px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tg-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .tg-banner img {
+            width: 27px;
+            height: 27px;
+            margin-right: 12px;
+            border-radius: 5%;
+            border: 1px solid white;
+        }
+
+        .tg-banner span {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 40px;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .modal-buttons a, .modal-buttons button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            flex: 1;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #joinChannel {
+            background-color: #1a73e8;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #alreadyJoined {
+            background-color: #f44336;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #joinChannel:hover, #alreadyJoined:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-content h2 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .modal-content p {
+            font-size: 13px;
+            color: #444;
+        }
+    </style>
 </head>
 <body>
 
-<div id="player"></div>
+    <a href="https://t.me/mgsportstv1" class="tg-banner" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/2048px-Telegram_logo.svg.png" alt="Telegram Logo">
+        <span>Join our Telegram</span>
+    </a>
+<center>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Join Our Telegram Channel</h2>
+            <p>Stay updated with the latest streams and news.</p>
+            <div class="modal-buttons">
+                <a href="https://t.me/mgsportstv1" id="joinChannel" target="_blank">JOIN NOW</a>
+                <button id="alreadyJoined">Close</button>
+            </div>
+        </div>
+    </div>
+  </center>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Show the modal when the page loads
+            $('#myModal').fadeIn();
 
-<script>
-// The provided URL with the DRM parameters
-var input_url = "https://g006-sle-us-cmaf-prd-fy.cdn.peacocktv.com/co01/Content/CMAF_S2-CTR-4s/Live/channel(5014719-716117-48f94965b15)/master.mpd?|drmScheme=clearkey&drmLicense=00225fd04ffc907d9eda034a656c1a0e:2039ec525c523c20e70f6d18216ec590";
+            // Close the modal when the close button or "alreadyJoined" button is clicked
+            $('#closeModal, #alreadyJoined').on('click', function() {
+                $('#myModal').fadeOut();
+            });
+        });
+    </script>
+</body>
+</html>
 
-// Extract the base URL and DRM license keys
-var parts = input_url.split('|');
-var url = parts[0]; // The DASH MPD URL
-var query_string = parts[1];
-
-var params = new URLSearchParams(query_string);
-var drmScheme = params.get('drmScheme');
-var drmLicense = params.get('drmLicense');
-
-var k1, k2;
-
-if (drmScheme === 'clearkey' && drmLicense) {
-    [k1, k2] = drmLicense.split(':');
-}
-
-// Setup JW Player if the URL and keys are present
-if (url && k1 && k2) {
-    jwplayer("player").setup({
-        playlist: [{
-            sources: [{
-                file: url,
-                drm: {
-                    clearkey: {
-                        keyId: k1,
-                        key: k2
-                    }
-                }
-            }]
-        }],
-        autostart: true,
-        width: "100%", 
-        height: "100%", 
-        stretching: "exactfit",
-        aspectratio: "16:9",
-        cast: {} // Enabling Chromecast support
-    });
-} else {
-    console.error("Failed to extract DRM keys or URL from the input.");
-}
-</script>
 
 </body>
+
 </html>
