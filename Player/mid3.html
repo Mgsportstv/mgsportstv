@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
         
-                
+
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       
+       <link rel="shortcut icon" type="image/x-icon" href="https://mgsportstv.com/wp-content/uploads/2024/02/cropped-4104ef25-fe83-4b38-8b38-554271ceddb1.jpeg">
     <title>MG SPORTS TV MID Player</title>
     <style>
                      /*Font Library https://fonts.google.com/ */
@@ -76,19 +76,16 @@
 </head>
 <body>
 
-<div id="player-container">
-    
-          
-</div>
+
 
 	
 <script>
     // Get the custom ID from the URL parameter
     const urlParams = new URLSearchParams(window.location.search);
-    const customID = urlParams.get('mid');
+    const customID = urlParams.get('id');
 
     // Replace (custome_ID) in the original URL with the custom ID
-    
+    const originalURL = `https://yosintv3.github.io/finalbackup/index.html?src=https://yosintv.github.io/yosintv/midd.html?yosintv=${customID}`;
 
     // Set the iframe source to the modified URL
     document.getElementById('player-iframe').src = originalURL;
