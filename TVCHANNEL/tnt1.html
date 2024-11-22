@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JW Player with ClearKey DRM</title>
+    <!-- Include the JW Player library -->
+    <script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script>
+</head>
+<body>
+
+<div id="player"></div>
+
+<script>
+// The provided URL with the DRM parameters
+var input_url = "https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/clients/dash/enc/wf8usag51e/out/v1/bd3b0c314fff4bb1ab4693358f3cd2d3/cenc.mpd?|drmScheme=clearkey&drmLicense=ae26845bd33038a9c0774a0981007294:63ac662dde310cfb4cc6f9b43b34196d";
+
+// Extract the base URL and DRM license keys
+var parts = input_url.split('|');
+var url = parts[0]; // The DASH MPD URL
+var query_string = parts[1];
+
+var params = new URLSearchParams(query_string);
+var drmScheme = params.get('drmScheme');
+var drmLicense = params.get('drmLicense');
+
+var k1, k2;
+
+if (drmScheme === 'clearkey' && drmLicense) {
+    [k1, k2] = drmLicense.split(':');
+}
+
+// Setup JW Player if the URL and keys are present
+if (url && k1 && k2) {
+    jwplayer("player").setup({
+        playlist: [{
+            sources: [{
+                file: url,
+                drm: {
+                    clearkey: {
+                        keyId: k1,
+                        key: k2
+                    }
+                }
+            }]
+        }],
+        autostart: true,
+        width: "100%", 
+        height: "100%", 
+        stretching: "exactfit",
+        aspectratio: "16:9",
+        cast: {} // Enabling Chromecast support
+    });
+} else {
+    console.error("Failed to extract DRM keys or URL from the input.");
+}
+</script>
+
+</body>
+</html>
