@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script src="https://alwingul.min.js" data-zone="73701" async data-cfasync="false"></script>
+    <meta charset="UTF-8">
+    <title>MG SPORTS TV</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .telegram-link {
+            background-color: #0088cc;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .jwplayer {
+            position: absolute !important;
+            top: 50px; /* Adjust to fit below the Telegram link */
+            width: 100%;
+            height: calc(100% - 50px); /* Adjust to fit below the Telegram link */
+        }
+
+        .jwplayer.jw-flag-aspect-mode {
+            min-height: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Telegram link -->
+    <div class="telegram-link">
+        <a href="https://t.me/mgsportstv1" target="_blank" style="color: white; text-decoration: none;">Join us on Telegram</a>
+    </div>
+    
+    <!-- JWPlayer -->
+    <div id="jwplayerDiv"></div>
+
+    <script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script>
+    <script type="text/javascript">
+        var config = {"file":"https://live2.shoq.com.pk/live/eds/Criclife2/DASH/Criclife2.mpd","drm":{"clearkey":{"keyId":"4301796d6d67374043c4a43c18dff7ea","key":"96a3dc8766317aa169149a604928ebb6"}}};
+
+        jwplayer("jwplayerDiv").setup({
+            file: config.file,
+            position: 'bottom',
+            autostart: true,
+            stretching: "",
+            width: "100%",
+            type: "dash",
+            drm: {
+                clearkey: {
+                    keyId: config.drm.clearkey.keyId,
+                    key: config.drm.clearkey.key
+                }
+            }
+        });
+    </script>
+</body>
+</html>
