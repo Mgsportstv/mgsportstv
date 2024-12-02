@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Watch YouTube videos with our responsive video player. Easily embed videos using video IDs and enjoy a seamless viewing experience on all devices.">
+  <meta property="og:title" content="Watch YouTube Videos - Responsive Video Player">
+  <meta property="og:description" content="A responsive video player to embed and watch YouTube videos.">
+  <meta property="og:image" content="https://mgsportstv.com/wp-content/uploads/2024/02/4104ef25-fe83-4b38-8b38-554271ceddb1.jpeg">
+  <meta property="og:url" content="https://mgsportstv.com/wp-content/uploads/2024/02/4104ef25-fe83-4b38-8b38-554271ceddb1.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="robots" content="noindex">
+  <meta name="twitter:title" content="Watch YouTube Videos - Responsive Video Player">
+  <meta name="twitter:description" content=" A responsive video player to embed and watch YouTube videos.">
+  <meta name="twitter:image" content="https://mgsportstv.com/wp-content/uploads/2024/02/4104ef25-fe83-4b38-8b38-554271ceddb1.jpeg">
+  <title>Watch YouTube Videos - Responsive Video Player</title>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Watch YouTube Videos - Responsive Video Player",
+  "description": "A responsive video player to embed and watch YouTube videos.",
+  "thumbnailUrl": "https://mgsportstv.com/wp-content/uploads/2024/02/4104ef25-fe83-4b38-8b38-554271ceddb1.jpeg",
+  "uploadDate": "2024-08-24",
+  "contentUrl": "https://mgsportstv.com/wp-content/uploads/2024/02/4104ef25-fe83-4b38-8b38-554271ceddb1.jpeg"
+}
+</script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio (change to 75% for 4:3 videos) */
+      height: 0;
+      overflow: hidden;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="video-container" id="player"></div>
+
+  <script>
+    // Get the video ID from the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoId = urlParams.get('v');
+
+    // Create the YouTube player
+    function createYouTubePlayer() {
+      const playerDiv = document.getElementById('player');
+      playerDiv.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    }
+
+    // Check if videoId is available in the URL parameter and create the player
+    if (videoId) {
+      createYouTubePlayer();
+    } else {
+      console.error('No video ID found in the URL parameter. Please provide a valid YouTube video ID.');
+    }
+  </script>
+<!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1994a8d6a4f24c6a9e3b90b142edde26"}'></script><!-- Cloudflare Pages Analytics --></body>
+</html>
+<!-- BEGIN: Powered by Supercounters.com -->
+<center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script><script type="text/javascript">sc_online_i(1701227,"ffffff","e61c1c");</script><br><noscript><a href="https://www.supercounters.com/">free online counter</a></noscript>
+</center>
+<!-- END: Powered by Supercounters.com -->
