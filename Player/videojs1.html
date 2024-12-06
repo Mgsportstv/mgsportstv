@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Sports TV Player</title>
+
+    <!-- Video.js CSS -->
+    <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet">
+
+    <!-- Custom Player Styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .video-container {
+            margin: 20px auto;
+            max-width: 80%;
+        }
+        .video-js {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to MG Sports TV</h1>
+    <p>Live sports streaming at its best!</p>
+
+    <div class="video-container">
+        <!-- Video.js Player -->
+        <video id="livePlayer" class="video-js vjs-default-skin" controls preload="auto" data-setup='{}'>
+            <source id="streamSource" src="" type="application/x-mpegURL">
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a
+                web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>.
+            </p>
+        </video>
+    </div>
+
+    <!-- Video.js JS -->
+    <script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Get URL parameter
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Set video source based on URL parameter
+        const videoUrl = getQueryParam('url');
+        const streamSource = document.getElementById('streamSource');
+
+        if (videoUrl) {
+            streamSource.src = videoUrl;
+        } else {
+            alert('No video URL provided. Please add ?url=your-video-url.m3u8 to the URL.');
+        }
+
+        // Initialize the Video.js player
+        const player = videojs('livePlayer', {
+            autoplay: true,
+            controls: true,
+            liveui: true,
+            fluid: true, // Ensures the player is responsive
+        });
+
+        // Handle player events (Optional)
+        player.on('play', () => {
+            console.log('Stream is playing.');
+        });
+
+        player.on('pause', () => {
+            console.log('Stream is paused.');
+        });
+
+        player.on('error', (e) => {
+            console.error('An error occurred:', e);
+        });
+    </script>
+
+</body>
+</html>
