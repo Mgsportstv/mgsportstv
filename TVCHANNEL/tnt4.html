@@ -1,43 +1,88 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <script src="//cdn.jsdelivr.net/npm/@clappr/player@0.8/dist/clappr.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/@swarmcloud/hls/p2p-engine.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/cssm.css">
-    <style>body, html {margin: 0;padding: 0;width: 100%;height: 100%;overflow: hidden;}#player {position: absolute;top: 0;left: 0;width: 100%;height: 100%;}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Clappr Player with PHP-based ClearKey DRM</title>
+
+    <!-- Clappr and necessary plugins -->
+ <link rel="stylesheet" type="text/css" href="clap.css">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/clappr/latest/clappr.js"></script>
+    <script type="text/javascript" src="js/level.js"></script>
+    <script src="js/dash-shaka-playback.js"></script>
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111; /* Dark background for the page */
+        }
+
+        #player {
+            width: 100%;
+            height: 100vh; /* Full-screen video player */
+        }
+    </style>
 </head>
+
 <body>
-<div id="player"></div>
-<script>
-    var playbackURL = "https://98ca.pricesaskeloadsc.com:443/global/tnt_4_gb/index.m3u8?token=67376785de1cf8396f050e6a99423f05ea5a4a5d-b2-1733974771-1733938771";
-    var p2pConfig = {
-        live: true,
-        trackerZone: 'us',    
-    }
-    P2PEngineHls.tryRegisterServiceWorker(p2pConfig).then(() => {
+    <div id="player"></div>
+
+    <script>
+        // PHP variables converted to JavaScript
+        var dash_mpd_url = "https://da-d436234920010b8800010302000000000000000b.id.cdn.upcbroadband.com/wp/wp3-anp-g05060506-hzn-nl.t1.prd.dyncdn.dmdsdp.com/live/disk1/NL_000096_019382/go-dash-fhd-avc/NL_000096_019382.mpd?";
+        var drmKeyId = "16bf72dc22743d929c4318e193408373";
+        var drmKey = "eae51a1e3904124963074cbf432c7c8e";
+
+        // Chromecast and DRM Configurations
+        var chromecastConfig = {
+            appId: "9DFB77C0",
+            contentType: "video/mp4"
+        };
+
+        var drmKeys = {};
+        drmKeys[drmKeyId] = drmKey;
+
+        var drmConfig = {
+            clearKeys: drmKeys
+        };
+
+        var shakaConfig = {
+            drm: drmConfig
+        };
+
+        // Initialize Clappr player with Dash, Shaka, DRM, and Quality Selector plugins
         var player = new Clappr.Player({
-            source: playbackURL,
-            parentId: "#player",
-            poster: '',
-            width: '100%',
+            source: dash_mpd_url,
+            mimeType: 'application/dash+xml',
             height: '100%',
+            width: '100%',
             autoPlay: false,
-            plugins: [],
+            plugins: [LevelSelector, DashShakaPlayback, Clappr.MediaControl],
+            mediacontrol: {
+                seekbar: "#886FFF",  // Red seek bar
+                buttons: "#C8A8D8"  // Light control buttons
+            },
+            events: {
+                onReady: function () {
+                    var clickToPausePlugin = this.getPlugin("click_to_pause");
+                    if (clickToPausePlugin) {
+                        clickToPausePlugin.disable();
+                    }
+                }
+            },
+            chromecast: chromecastConfig,
+            shakaConfiguration: shakaConfig,  // DRM configuration for Shaka
+            shakaOnBeforeLoad: function (shakaPlayerInstance) {
+                // Additional DRM configurations or events if needed before Shaka Player loads
+            },
+            parentId: "#player"
         });
-        p2pConfig.hlsjsInstance = player.core.getCurrentPlayback()?._hls;
-        var engine = new P2PEngineHls(p2pConfig);
-    });
-</script>
-<script id="aclib" type="text/javascript" src="https://alwaysdomain01.online/ads/lib7.js"></script>
-<script type="text/javascript">
-    aclib.runPop({
-        zoneId: '7440630',
-    });
-</script>
-<script type="text/javascript">
-!function(){try{var t=["sandbox","hasAttribute","frameElement","data","indexOf","href","domain","","plugins","undefined","namedItem","object","createElement","onerror","type","application/pdf","setAttribute","style","visibility:hidden;width:0;height:0;position:absolute;top:-99px;","appendChild","body","removeChild","parentElement","https://streamtp1.com/blocked.html?referer=","substring","referrer"];function e(){try{if(config.ampallow){var e=window.location.ancestorOrigins;if(e[e.length-1].endsWith("google.com"))return}}catch(n){}setTimeout(function(){location[t[5]]="https://streamtp1.com/blocked.html"},500)}!function e(n){try{if(window[t[2]][t[1]](t[0])){n();return}}catch(r){}if(0!=location[t[5]][t[4]](t[3])&&document[t[6]]==t[7]){n();return}if(typeof navigator[t[8]]!=t[9]&&typeof navigator[t[8]][t[10]]!=t[9]&&null!=navigator[t[8]][t[10]](t[11])){var i=document[t[13]](t[12]);i[t[14]]=function(){n()},i[t[17]](t[15],t[16]),i[t[17]](t[18],t[19]),i[t[17]](t[3],t[20]),document[t[22]][t[21]](i),setTimeout(function(){i[t[24]][t[23]](i)},150)}}(e),function t(){try{document.domain=document.domain}catch(e){try{if(-1!=e.toString().toLowerCase().indexOf("sandbox"))return!0}catch(n){}}return!1}()&&e(),function t(){if(window.parent===window)return!1;try{var e=window.frameElement}catch(n){e=null}return null===e?""===document.domain&&"data:"!==location.protocol:e.hasAttribute("sandbox")}()&&e()}catch(n){}}();
-</script>
+    </script>
 </body>
+
 </html>
 
