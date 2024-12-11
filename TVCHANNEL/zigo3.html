@@ -1,17 +1,19 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG Clappr Player with PHP-based ClearKey DRM</title>
+    <title>MG SPORTS TV Clappr Player with PHP-based ClearKey DRM</title>
 
     <!-- Clappr and necessary plugins -->
- <link rel="stylesheet" type="text/css" href="clap.css">
+ <link rel="stylesheet" type="text/css" href="https://tv2.mgsportstv.com/Player/js/clap.css">
     
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/clappr/latest/clappr.js"></script>
-    <script type="text/javascript" src="js/level.js"></script>
-    <script src="js/dash-shaka-playback.js"></script>
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/clappr/latest/clappr.js"></script>
+    <script type="text/javascript" src="https://tv2.mgsportstv.com/Player/js/level.js"></script>
+    <script src="https://tv2.mgsportstv.com/Player/js/dash-shaka-playback.js"></script>
     <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
 
     <style>
@@ -33,9 +35,10 @@
 
     <script>
         // PHP variables converted to JavaScript
-        var dash_mpd_url = "https://da-d436234920010b8800010302000000000000000b.id.cdn.upcbroadband.com/wp/wp3-anp-g05060506-hzn-nl.t1.prd.dyncdn.dmdsdp.com/live/disk1/NL_000096_019382/go-dash-fhd-avc/NL_000096_019382.mpd?";
+         var dash_mpd_url = "https://da-d436234920010b8800010302000000000000000b.id.cdn.upcbroadband.com/wp/wp3-anp-g05060506-hzn-nl.t1.prd.dyncdn.dmdsdp.com/live/disk1/NL_000096_019382/go-dash-fhd-avc/NL_000096_019382.mpd?";
         var drmKeyId = "16bf72dc22743d929c4318e193408373";
         var drmKey = "eae51a1e3904124963074cbf432c7c8e";
+
 
         // Chromecast and DRM Configurations
         var chromecastConfig = {
