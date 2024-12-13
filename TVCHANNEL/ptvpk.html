@@ -1,0 +1,38 @@
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/clappr/latest/clappr.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/clappr.level-selector/latest/level-selector.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
+
+<body>
+
+<body style="z-index:9999999999999999999999999999;margin:0px;padding:0px;overflow:hidden">
+    <div id="player"></div>
+
+<div id="player"></div>
+<script>
+var playerElement = document.getElementById("player");
+var player = new Clappr.Player({
+height: "100%",
+width: "100%",
+mediacontrol: {seekbar: "#FF0000", buttons: "#FF0000"},
+autoPlay: true,
+plugins: {
+'core': [LevelSelector, ]
+},
+hlsjsConfig: {
+xhrSetup: function(xhr, url) {
+xhr.withCredentials = false;
+}
+}
+});
+player.attachTo(playerElement);
+player.load({source: 'steam.php/ptvpk.m3u8', 
+mimeType: 'application/vnd.apple.mpegurl'});
+player.play();
+</script>
+
+
+</body>
+
+</head>
