@@ -1,0 +1,345 @@
+
+<html>
+<head>
+<title>Television Bd -  | Toffee </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" type="text/css" href="static/clap.css?v=1"/>
+
+<!-- Favicon Links -->
+<link rel="icon" href="static/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon"/>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@clappr/hlsjs-playback@1.0.1/dist/hlsjs-playback.min.js"></script>
+<script src="https://cdn.jsdelivr.net/clappr.level-selector/latest/level-selector.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="icon" href=""/>
+<link rel="shortcut icon" href=""/>
+ <!-- Hacker Style -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000; /* Black background */
+            font-family: 'Courier New', Courier, monospace; /* Monospace font for hacker look */
+            color: #007BFF; 
+        }
+
+        #player-wrapper {
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        #counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 20, 147, 0.1); /* Pink background */
+            color: #ff1493; /* Pink text */
+            padding: 4px 8px;
+            border: 1px solid #ff1493; /* Pink border */
+            border-radius: 5px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        #counter .eye-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            margin-right: 6px;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite ease-in-out;
+            background: rgba(255, 20, 147, 0.3); /* Pink background */
+        }
+
+        #counter .eye-icon {
+            font-size: 14px;
+            color: #ff1493; /* Pink icon */
+        }
+
+        .live-text {
+            font-weight: bold;
+            color: #007BFF; 
+            animation: flash 1.5s infinite;
+            margin-right: 8px;
+        }
+
+        #counter span {
+            font-size: 14px;
+            color: #007BFF; 
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .unmute-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 2px;
+            background-color: #ff1493; /* Pink background */
+            color: #fff; /* White text */
+            border: 2px solid #ff1493; /* Pink border */
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(255, 20, 147, 0.3); /* Pink shadow */
+            transition: background 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+
+        .unmute-button:hover {
+            background-color: #1e35c9; /* Darker pink on hover */
+            color: #fff; 
+            transform: scale(1.05); /* Slightly larger on hover */
+        }
+
+        .unmute-button:focus {
+            outline: none; /* Remove default focus outline */
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,20,147, 0.1); 
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup-content {
+            background-color: #000000;
+            padding: 20px;
+            width: 75%;
+            max-width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(255,20,147, 0.2);
+            text-align: center;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+            border: 2px solid #ff1493;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #ff1493;
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .join-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #ff1493; /* Pink background */
+            color: #fff; /* White text */
+            text-decoration: none;
+            border: 2px solid #ff1493; /* Pink border */
+            border-radius: 5px;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .join-btn:hover {
+            background-color: #1e35c9; /* Darker pink on hover */
+            border-color: #1e35c9; /* Darker pink border on hover */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Player Container -->
+    <div id="player-wrapper"></div>
+    
+    <!-- Visitor Counter -->
+    <div id="counter">
+    <div class="live-text">Live Viewers</div>
+    <div class="eye-box">
+        <i class="fas fa-eye eye-icon"></i>
+    </div>
+    <span id="activeVisitors">0</span>
+</div>
+
+
+    <!-- Click to Unmute Button -->
+    <button id="unmuteButton" class="unmute-button">Click to Unmute</button>
+<script>
+    var playerElement = document.getElementById("player-wrapper");
+var player = new Clappr.Player({
+    source: 'live.php?id=sony_sports_1_hd&e=.m3u8',
+    width: '100%',
+    height: '100%',
+    autoPlay: true, // Ensure autoplay is enabled
+    mute: true, // Start muted
+    plugins: [Clappr.HlsjsPlayback, Clappr.LevelSelector],
+    plugins: [HlsjsPlayback, LevelSelector],
+    mimeType: "application/x-mpegURL",
+    mediacontrol: { seekbar: "#ff1493 ", buttons: "#ff1493" },
+    parentId: "#player-wrapper",
+    events: {
+        onReady: function() {
+            console.log("Player is ready");
+            player.unmute(); // Unmute the player once ready
+        },
+        onPlay: function() {
+            console.log("Player is playing");
+        },
+        onError: function() {
+            console.log("Player encountered an error. Reloading...");
+            reloadPlayer(); // Reload player on error
+        }
+    }
+});
+
+// Handle unmute button click
+document.getElementById('unmuteButton').addEventListener('click', function() {
+    player.unmute(); // Unmute the player
+    this.style.display = 'none'; // Hide the button after clicking
+});
+
+// Function to reload player
+function reloadPlayer() {
+    player.destroy(); // Destroy the current player instance
+    player = new Clappr.Player({
+        source: 'live.php?id=sony_sports_1_hd&e=.m3u8',
+        width: '100%',
+        height: '100%',
+        autoPlay: true, // Ensure autoplay is enabled
+        mute: true, // Start muted
+        plugins: [Clappr.HlsjsPlayback, Clappr.LevelSelector],
+        plugins: [HlsjsPlayback, LevelSelector],
+        mimeType: "application/x-mpegURL",
+        mediacontrol: { seekbar: "#0d377a", buttons: "#0d377a" },
+        parentId: "#player-wrapper",
+        events: {
+            onReady: function() {
+                console.log("Player is reloaded and ready");
+                player.unmute(); // Unmute the player once reloaded
+            },
+            onPlay: function() {
+                console.log("Player is playing");
+            },
+            onError: function() {
+                console.log("Player encountered an error. Reloading...");
+                reloadPlayer(); // Reload player on error
+            }
+        }
+    });
+}
+
+// Reload the player every 10 minutes (600000 milliseconds)
+setInterval(reloadPlayer, 600000); // 10 minutes
+
+// Update visitor count
+function getDeviceId() {
+    let deviceId = localStorage.getItem('deviceId');
+    if (!deviceId) {
+        deviceId = 'device-' + Date.now();
+        localStorage.setItem('deviceId', deviceId);
+    }
+    return deviceId;
+}
+
+function updateVisitorCount() {
+    fetch('liveviewers.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({ deviceId: getDeviceId() })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.activeVisitors !== undefined) {
+            document.getElementById('activeVisitors').textContent = data.activeVisitors;
+        } else {
+            console.error('Invalid response format:', data);
+        }
+    })
+    .catch(error => console.error('Error fetching visitor count:', error));
+}
+
+updateVisitorCount();
+setInterval(updateVisitorCount, 5000); // Update every 5 seconds
+</script>
+
+    <!-- Telegram Join Popup -->
+<div id="warningPopup" class="popup">
+    <div class="popup-content">
+        <button class="close-btn">&times;</button>
+        <p>Join our Telegram channel for more updates!</p>
+        <a href="https://t.me/+rZUVKmXW7dM0MTc1" class="join-btn" target="_blank">Join Us</a>
+    </div>
+</div>
+
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var warningPopup = document.getElementById('warningPopup');
+            var closeBtn = warningPopup.querySelector('.close-btn');
+            
+            setTimeout(function() {
+                warningPopup.style.display = 'flex';
+            }, 15000); // Show after 3 seconds
+
+            closeBtn.addEventListener('click', function() {
+                warningPopup.style.display = 'none';
+            });
+        });
+    </script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8f350666094bef6a","version":"2024.10.5","r":1,"token":"b7c998c91c054e6292f934483053f12a","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+<!-- Histats.com  START  (aync)-->
+<script type="text/javascript">var _Hasync= _Hasync|| [];
+_Hasync.push(['Histats.start', '1,4889696,4,0,0,0,00010000']);
+_Hasync.push(['Histats.fasi', '1']);
+_Hasync.push(['Histats.track_hits', '']);
+(function() {
+var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+hs.src = ('//s10.histats.com/js15_as.js');
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+})();</script>
+<noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4889696&101" alt="" border="0"></a></noscript>
+<!-- Histats.com  END  -->
