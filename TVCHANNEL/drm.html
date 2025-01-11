@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRM Video Player</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/shaka-player.compiled.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/shaka-player.ui.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/controls.css">
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        [data-shaka-player-container] {
+            width: 100%;
+            height: 100%;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .shaka-progress-bar-container {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .shaka-progress-bar {
+            background: #00d4ff !important;
+        }
+
+        .shaka-progress-bar-buffer {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .shaka-scrubber-container {
+            background: #ff9800;
+        }
+    </style>
+</head>
+<body>
+<div data-shaka-player-container>
+    <video autoplay data-shaka-player id="video"></video>
+</div>
+
+<script>
+eval(atob('Y29uc3QgbWFuaWZlc3RVcmkgPSAnJzsNCg0KYXN5bmMgZnVuY3Rpb24gaW5pdCgpIHsNCiAgICBjb25zdCB2aWRlbyA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd2aWRlbycpOw0KICAgIGNvbnN0IHVpID0gdmlkZW9bJ3VpJ107DQogICAgY29uc3QgY29udHJvbHMgPSB1aS5nZXRDb250cm9scygpOw0KICAgIGNvbnN0IHBsYXllciA9IGNvbnRyb2xzLmdldFBsYXllcigpOw0KDQogICAgcGxheWVyLmNvbmZpZ3VyZSh7DQogICAgICAgIGRybTogew0KICAgICAgICAgICAgY2xlYXJLZXlzOiB7DQogICAgICAgICAgICAgICAgJyc6ICcnLA0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgfSk7DQoNCiAgICBjb25zdCB1aUNvbmZpZyA9IHsNCiAgICAgICAgYWRkU2Vla0JhcjogdHJ1ZSwNCiAgICAgICAgY29udHJvbFBhbmVsRWxlbWVudHM6IFsNCiAgICAgICAgICAgICdwbGF5X3BhdXNlJywNCiAgICAgICAgICAgICd2b2x1bWUnLA0KICAgICAgICAgICAgJ3RpbWVfYW5kX2R1cmF0aW9uJywNCiAgICAgICAgICAgICdmdWxsc2NyZWVuJywNCiAgICAgICAgICAgICdvdmVyZmxvd19tZW51JywNCiAgICAgICAgICAgICdtdXRlJywNCiAgICAgICAgICAgICdjYXB0aW9ucycsDQogICAgICAgICAgICAncGxheWJhY2tfcmF0ZScsDQogICAgICAgICAgICAncmVzb2x1dGlvbicNCiAgICAgICAgXSwNCiAgICAgICAgc2Vla0JhckNvbG9yczogew0KICAgICAgICAgICAgYmFzZTogJ3JnYmEoMjU1LCAyNTUsIDI1NSwgMC4yKScsICAgLy8gQmFzZSAodW5maWxsZWQgcG9ydGlvbikNCiAgICAgICAgICAgIGJ1ZmZlcmVkOiAncmdiYSgyNTUsIDI1NSwgMjU1LCAwLjQpJywgLy8gQnVmZmVyZWQgcG9ydGlvbg0KICAgICAgICAgICAgcGxheWVkOiAncmdiKDI1NSwgMCwgMCknICAgICAgICAgICAgICAvLyBQbGF5ZWQgcG9ydGlvbiAocmVkKQ0KICAgICAgICB9DQogICAgfTsNCg0KICAgIHVpLmNvbmZpZ3VyZSh1aUNvbmZpZyk7DQoNCiAgICB3aW5kb3cucGxheWVyID0gcGxheWVyOw0KICAgIHdpbmRvdy51aSA9IHVpOw0KDQogICAgcGxheWVyLmFkZEV2ZW50TGlzdGVuZXIoJ2Vycm9yJywgb25QbGF5ZXJFcnJvckV2ZW50KTsNCiAgICBjb250cm9scy5hZGRFdmVudExpc3RlbmVyKCdlcnJvcicsIG9uVUlFcnJvckV2ZW50KTsNCg0KICAgIHRyeSB7DQogICAgICAgIGF3YWl0IHBsYXllci5sb2FkKG1hbmlmZXN0VXJpKTsNCiAgICAgICAgY29uc29sZS5sb2coJ1RoZSB2aWRlbyBoYXMgbm93IGJlZW4gbG9hZGVkIScpOw0KICAgIH0gY2F0Y2ggKGVycm9yKSB7DQogICAgICAgIG9uUGxheWVyRXJyb3IoZXJyb3IpOw0KICAgIH0NCn0NCg0KZnVuY3Rpb24gb25QbGF5ZXJFcnJvckV2ZW50KGVycm9yRXZlbnQpIHsNCiAgICBvblBsYXllckVycm9yKGVycm9yRXZlbnQuZGV0YWlsKTsNCn0NCg0KZnVuY3Rpb24gb25QbGF5ZXJFcnJvcihlcnJvcikgew0KICAgIGNvbnNvbGUuZXJyb3IoJ0Vycm9yIGNvZGUnLCBlcnJvci5jb2RlLCAnb2JqZWN0JywgZXJyb3IpOw0KfQ0KDQpmdW5jdGlvbiBvblVJRXJyb3JFdmVudChlcnJvckV2ZW50KSB7DQogICAgb25QbGF5ZXJFcnJvcihlcnJvckV2ZW50LmRldGFpbCk7DQp9DQoNCmZ1bmN0aW9uIGluaXRGYWlsZWQoZXJyb3JFdmVudCkgew0KICAgIGNvbnNvbGUuZXJyb3IoJ1VuYWJsZSB0byBsb2FkIHRoZSBVSSBsaWJyYXJ5IScpOw0KfQ0KDQpkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdzaGFrYS11aS1sb2FkZWQnLCBpbml0KTsNCmRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ3NoYWthLXVpLWxvYWQtZmFpbGVkJywgaW5pdEZhaWxlZCk7'));</script>
+</body>
+</html>
